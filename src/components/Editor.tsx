@@ -10,7 +10,10 @@ export default function Editor() {
 
   return (
     <div style={{ backgroundColor: colors.background }} class="h-screen">
-      <div class="mb-4 p-2" style={{ backgroundColor: colors.navbar }}>
+      <div
+        class="mb-4 p-2 text-sm md:text-base"
+        style={{ backgroundColor: colors.navbar }}
+      >
         <nav
           class="flex justify-between mx-4"
           style={{ color: colors.primary }}
@@ -25,7 +28,6 @@ export default function Editor() {
           </div>
         </nav>
       </div>
-
       <CodeBlock />
     </div>
   );

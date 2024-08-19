@@ -72,7 +72,8 @@ export default function MenuButton({
         <span class="hidden md:inline">
           [{label}: {$store.get()}]
         </span>
-        <span class="md:hidden">[{$store.get()}]</span>
+        <span class="hidden sm:inline md:hidden">[{$store.get()}]</span>
+        <span class="sm:hidden">[{label}]</span>
       </button>
       {open && (
         <div

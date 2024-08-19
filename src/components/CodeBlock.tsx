@@ -24,23 +24,15 @@ export default function CodeBlock() {
   return (
     <div class="relative">
       <textarea
-        class="ml-4 w-full p-2 z-0 rounded absolute top-0 left-0 bg-transparent caret-transparent text-transparent resize-none"
+        class="ml-[3.25rem] w-[calc(100%-3.5rem)] z-0 rounded absolute top-0 left-0 bg-transparent text-transparent resize-none break-normal overflow-x-scroll"
         value={code}
         onInput={handleCodeChange}
-        rows={10}
+        rows={$codeStore.get().split("\n").length}
         spellCheck={false}
-        style={{
-          height: "100%",
-          width: "100%",
-        }}
       />
       <div
-        class="ml-4 shiki pointer-events-none"
+        class="ml-4 overflow-x-hidden shiki pointer-events-none"
         dangerouslySetInnerHTML={{ __html }}
-        style={{
-          whiteSpace: "pre-wrap",
-          fontFamily: "monospace",
-        }}
       />
     </div>
   );
