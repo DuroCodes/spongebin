@@ -24,7 +24,7 @@ export default function Editor() {
           <div class="flex gap-2">
             <LanguageSelect />
             <ThemeSelect />
-            <a href="github.com/durocodes/spongebin">[source]</a>
+            <a href="https://github.com/durocodes/spongebin">[source]</a>
           </div>
         </nav>
       </div>

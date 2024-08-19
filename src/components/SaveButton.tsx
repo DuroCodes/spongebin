@@ -19,7 +19,7 @@ export default function SaveButton() {
 
     navigator.clipboard.writeText(url);
 
-    setButtonText("[link copied!]");
+    setButtonText("[copied!]");
 
     setTimeout(() => {
       setButtonText("[save]");
