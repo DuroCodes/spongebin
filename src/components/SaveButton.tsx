@@ -12,7 +12,7 @@ export default function SaveButton() {
   const save = async () => {
     setSaving(true);
 
-    const result = await unwrapOr(encode(code), "");
+    const result = await unwrapOr(encode(code), "Hello World");
     const url = `${window.location.origin}/?l=${$langStore.get()}&t=${$themeStore.get()}&c=${result}`;
 
     navigator.clipboard.writeText(url);

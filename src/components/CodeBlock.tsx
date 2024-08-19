@@ -31,7 +31,7 @@ export default function CodeBlock() {
         spellCheck={false}
       />
       <div
-        class="ml-4 overflow-x-hidden shiki pointer-events-none"
+        class="ml-4 shiki pointer-events-none"
         dangerouslySetInnerHTML={{ __html }}
       />
     </div>

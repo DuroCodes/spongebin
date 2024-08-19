@@ -2,19 +2,26 @@
 import "../styles/global.css";
 import { type BundledTheme } from "shiki";
 import Editor from "../components/Editor";
-import { $codeStore, $langStore, $themeStore, parseLang } from "../utils/theme";
+import {
+  $codeStore,
+  $langStore,
+  $themeStore,
+  $themeColorsStore,
+  parseLang,
+} from "../utils/theme";
 import { decode } from "../utils/encode";
 import { unwrapOr } from "../utils/result";
 
 const langParam = Astro.url.searchParams.get("l") ?? "txt";
 const themeParam = Astro.url.searchParams.get("t") ?? "github-dark-default";
+
 const codeParam =
   Astro.url.searchParams.get("c") ??
-  "H4sIAAAAAAAAE_PLV3DOT0lVCCjKL8tMSU0BAGFoYswQAAAA";
+  "H4sIAAAAAAAAE_NIzcnJVwjPL8pJAQBWsRdKCwAAAA";
 
 const code = await unwrapOr(
   decode(codeParam),
-  "H4sIAAAAAAAAE_PLV3DOT0lVCCjKL8tMSU0BAGFoYswQAAAA",
+  "H4sIAAAAAAAAE_NIzcnJVwjPL8pJAQBWsRdKCwAAAA",
 );
 
 $codeStore.set(code);
@@ -42,7 +49,7 @@ $themeStore.set(themeParam as BundledTheme);
     <meta property="og:url" content={Astro.url} />
   </head>
 
-  <body>
+  <body style={{ backgroundColor: $themeColorsStore.get().background }}>
     <Editor client:load />
   </body>
 </html>
