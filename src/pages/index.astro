@@ -1,0 +1,48 @@
+---
+import "../styles/global.css";
+import { type BundledTheme } from "shiki";
+import Editor from "../components/Editor";
+import { $codeStore, $langStore, $themeStore, parseLang } from "../utils/theme";
+import { decode } from "../utils/encode";
+import { unwrapOr } from "../utils/result";
+
+const langParam = Astro.url.searchParams.get("l") ?? "txt";
+const themeParam = Astro.url.searchParams.get("t") ?? "github-dark-default";
+const codeParam =
+  Astro.url.searchParams.get("c") ??
+  "H4sIAAAAAAAAE_PLV3DOT0lVCCjKL8tMSU0BAGFoYswQAAAA";
+
+const code = await unwrapOr(
+  decode(codeParam),
+  "H4sIAAAAAAAAE_PLV3DOT0lVCCjKL8tMSU0BAGFoYswQAAAA",
+);
+
+$codeStore.set(code);
+$langStore.set(parseLang(langParam));
+$themeStore.set(themeParam as BundledTheme);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>sponge bin</title>
+    <meta name="theme-color" content="#FFCC4D" />
+    <meta name="description" content="a pastebin made of sponge" />
+
+    <meta property="og:title" content="sponge bin" />
+    <meta property="og:description" content="a pastebin made of sponge" />
+    <meta
+      property="og:image"
+      content={new URL("/images/sponge.png", Astro.url)}
+    />
+    <meta property="og:url" content={Astro.url} />
+  </head>
+
+  <body>
+    <Editor client:load />
+  </body>
+</html>
