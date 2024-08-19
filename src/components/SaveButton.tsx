@@ -12,8 +12,6 @@ export default function SaveButton() {
   const save = async () => {
     setSaving(true);
 
-    console.log({ code });
-
     const result = await unwrapOr(encode(code), "");
     const url = `${window.location.origin}/?l=${$langStore.get()}&t=${$themeStore.get()}&c=${result}`;
 
