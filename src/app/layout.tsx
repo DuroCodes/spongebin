@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "spongebin",
   description: "a pastebin made with sponge",
   openGraph: { images: "/sponge.png" },
+  twitter: { card: "summary" },
 };
 
 export const viewport: Viewport = {
