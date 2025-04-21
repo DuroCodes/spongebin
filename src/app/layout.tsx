@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: "a pastebin made with sponge",
   openGraph: { images: "/sponge.png" },
   twitter: { card: "summary" },
-  appleWebApp: { statusBarStyle: "black-translucent" },
+  appleWebApp: { statusBarStyle: "black" },
 };
 
 export const viewport: Viewport = {
