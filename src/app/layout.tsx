@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${jetBrainsMono.variable} antialiased`}>
+      <body className={`${jetBrainsMono.variable} antialiased min-h-screen`}>
         {children}
         <Toaster />
       </body>
