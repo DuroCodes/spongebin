@@ -24,6 +24,7 @@ interface SearchableSelectProps {
   emptyMessage?: string;
   value?: string;
   onValueChange?: (value: string) => void;
+  onPreview?: (value: string) => void;
   disabled?: boolean;
   className?: string;
 }
@@ -35,6 +36,7 @@ export function SearchableSelect({
   emptyMessage = "no results found",
   value,
   onValueChange,
+  onPreview,
   disabled = false,
   className,
 }: SearchableSelectProps) {
@@ -103,6 +105,7 @@ export function SearchableSelect({
                       "bg-accent text-accent-foreground",
                   )}
                   onClick={() => handleSelect(option.value)}
+                  onMouseEnter={() => onPreview?.(option.value)}
                 >
                   {option.label}
                 </div>

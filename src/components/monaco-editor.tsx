@@ -41,8 +41,7 @@ export function MonacoEditor() {
         tsx: "react",
       });
 
-      // TODO: find a better way to do this
-      setTimeout(() => setIsLoading(false), 100);
+      setIsLoading(false);
     } catch (error) {
       console.error("Failed to initialize editor:", error);
       setIsLoading(false);

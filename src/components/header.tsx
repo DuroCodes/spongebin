@@ -33,6 +33,7 @@ export function Header() {
           placeholder="language"
           value={language}
           onValueChange={setLanguage}
+          onPreview={setLanguage}
           className="w-full sm:w-40"
         />
         <SearchableSelect
@@ -43,6 +44,7 @@ export function Header() {
           placeholder="theme"
           value={theme}
           onValueChange={setTheme}
+          onPreview={setTheme}
           className="w-full sm:w-52"
         />
       </div>
