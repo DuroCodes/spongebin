@@ -50,7 +50,7 @@ export function MonacoEditor() {
   };
 
   return (
-    <div className="relative w-full h-100vh">
+    <div className="relative w-full h-[calc(100vh-6rem)] sm:h-[calc(100vh-3.25rem)]">
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-background z-10">
           <div className="flex flex-col items-center gap-2">
@@ -61,7 +61,7 @@ export function MonacoEditor() {
       )}
 
       <Editor
-        height="100vh"
+        className="h-[calc(100vh-6rem)] sm:h-calc(100vh-3.25rem)]"
         theme={theme}
         language={language}
         value={content}

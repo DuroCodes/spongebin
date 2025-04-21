@@ -9,9 +9,15 @@ interface SaveButtonProps {
   content: string;
   language: string;
   theme: string;
+  className?: string;
 }
 
-export function SaveButton({ content, language, theme }: SaveButtonProps) {
+export function SaveButton({
+  content,
+  language,
+  theme,
+  className,
+}: SaveButtonProps) {
   const router = useRouter();
 
   const handleSave = async () => {
@@ -33,7 +39,7 @@ export function SaveButton({ content, language, theme }: SaveButtonProps) {
   };
 
   return (
-    <Button variant="outline" onClick={handleSave}>
+    <Button variant="outline" onClick={handleSave} className={className}>
       save
     </Button>
   );
