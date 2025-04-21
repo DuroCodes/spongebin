@@ -1,13 +1,6 @@
 "use client";
 
 import { useEditor } from "./editor-provider";
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from "~/components/ui/select";
 import { Button } from "~/components/ui/button";
 import { THEME_MAP } from "~/utils/themes";
 import { LANGUAGES } from "~/utils/languages";
