@@ -1,6 +1,7 @@
 import { ThemeInput } from "shiki";
 import horizonTheme from "./custom/horizon.json";
 import shadesOfPurpleTheme from "./custom/shades-of-purple.json";
+import darkSquaredTheme from "./custom/dark-squared.json";
 
 type ShadCnKeys =
   | "background"
@@ -112,6 +113,29 @@ export const THEME_MAP: Record<string, ThemeData> = {
       input: "#3A3D41",
       ring: "#0078d4",
     },
+  },
+  "dark-squared": {
+    ui: {
+      background: "#0e0e0e",
+      foreground: "#D4D4D4",
+      card: "#252526",
+      "card-foreground": "#D4D4D4",
+      popover: "#252526",
+      "popover-foreground": "#D4D4D4",
+      primary: "#007ACC",
+      "primary-foreground": "#ffffff",
+      secondary: "#0078d4",
+      "secondary-foreground": "#ffffff",
+      muted: "#383a49",
+      "muted-foreground": "#A6A6A6",
+      accent: "#4EC9B0",
+      "accent-foreground": "#ffffff",
+      destructive: "#f44747",
+      border: "#454545",
+      input: "#3A3D41",
+      ring: "#0078d4",
+    },
+    theme: darkSquaredTheme as ThemeInput,
   },
   "everforest-dark": {
     ui: {

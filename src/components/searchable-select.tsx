@@ -42,6 +42,7 @@ export function SearchableSelect({
 }: SearchableSelectProps) {
   const [open, setOpen] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState("");
+  const [justSelected, setJustSelected] = React.useState(false);
 
   const selectedOption = React.useMemo(
     () => options.find((option) => option.value === value),
@@ -57,11 +58,25 @@ export function SearchableSelect({
 
   const handleSelect = React.useCallback(
     (optionValue: string) => {
+      setJustSelected(true);
       onValueChange?.(optionValue);
-      setOpen(false);
-      setSearchQuery("");
+
+      setTimeout(() => {
+        setOpen(false);
+        setSearchQuery("");
+
+        setTimeout(() => setJustSelected(false), 300);
+      }, 10);
     },
     [onValueChange],
+  );
+
+  const handleMouseEnter = React.useCallback(
+    (optionValue: string) => {
+      if (justSelected) return;
+      onPreview?.(optionValue);
+    },
+    [onPreview, justSelected],
   );
 
   return (
@@ -105,7 +120,7 @@ export function SearchableSelect({
                       "bg-accent text-accent-foreground",
                   )}
                   onClick={() => handleSelect(option.value)}
-                  onMouseEnter={() => onPreview?.(option.value)}
+                  onMouseEnter={() => handleMouseEnter(option.value)}
                 >
                   {option.label}
                 </div>
