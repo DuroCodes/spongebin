@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Button } from "~/components/ui/button";
 import { addPaste } from "~/actions/paste-action";
+import { useEffect } from "react";
 
 interface SaveButtonProps {
   content: string;
@@ -37,6 +38,17 @@ export function SaveButton({
       toast("failed to save paste");
     }
   };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "s" || !(e.ctrlKey || e.metaKey)) return;
+      e.preventDefault();
+      handleSave();
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [content, language, theme]);
 
   return (
     <Button variant="outline" onClick={handleSave} className={className}>
