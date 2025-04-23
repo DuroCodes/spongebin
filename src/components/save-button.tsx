@@ -25,14 +25,13 @@ export function SaveButton({
     try {
       if (!content) return;
       const result = await addPaste(content, language, theme);
-      if (result && result.id) {
-        const url = `${window.location.origin}/${result.id}`;
-        await navigator.clipboard.writeText(url);
+      if (!result.id) return;
 
-        router.push(`/${result.id}`);
+      const url = `${window.location.origin}/${result.id}`;
+      await navigator.clipboard.writeText(url);
+      router.push(`/${result.id}`);
 
-        toast("saved and copied to clipboard");
-      }
+      toast("saved and copied to clipboard");
     } catch (error) {
       console.error("Failed to save paste:", error);
       toast("failed to save paste");
