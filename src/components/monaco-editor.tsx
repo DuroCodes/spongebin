@@ -41,6 +41,11 @@ export function MonacoEditor() {
         tsx: "react",
       });
 
+      monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
+        validate: true,
+        enableSchemaRequest: true,
+      });
+
       setIsLoading(false);
     } catch (error) {
       console.error("Failed to initialize editor:", error);
