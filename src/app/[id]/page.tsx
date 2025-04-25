@@ -38,9 +38,11 @@ export async function generateMetadata({ params }: Props) {
       twitter: { card: "summary" },
     };
 
+  const numLines = paste.content.split("\n").length;
+
   return {
     title: `spongebin • ${paste.id}`,
-    description: "a pastebin made with sponge",
+    description: `a paste containing ${numLines} lines of ${paste.language}`,
     openGraph: { images: "/sponge.png" },
     twitter: { card: "summary" },
   };
