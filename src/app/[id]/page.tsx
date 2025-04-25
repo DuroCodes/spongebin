@@ -4,11 +4,11 @@ import { MonacoEditor } from "~/components/monaco-editor";
 import { EditorProvider } from "~/components/editor-provider";
 import { Header } from "~/components/header";
 
-export default async function PastePage({
-  params,
-}: {
+interface Props {
   params: Promise<{ id: string }>;
-}) {
+}
+
+export default async function PastePage({ params }: Props) {
   const { id } = await params;
   const paste = await getPasteById(id);
 
@@ -24,4 +24,24 @@ export default async function PastePage({
       <MonacoEditor />
     </EditorProvider>
   );
+}
+
+export async function generateMetadata({ params }: Props) {
+  const { id } = await params;
+  const paste = await getPasteById(id);
+
+  if (!paste)
+    return {
+      title: "spongebin",
+      description: "a pastebin made with sponge",
+      openGraph: { images: "/sponge.png" },
+      twitter: { card: "summary" },
+    };
+
+  return {
+    title: `spongebin • ${paste.id}`,
+    description: "a pastebin made with sponge",
+    openGraph: { images: "/sponge.png" },
+    twitter: { card: "summary" },
+  };
 }
