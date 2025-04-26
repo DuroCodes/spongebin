@@ -1,4 +1,4 @@
-import { getPasteById } from "~/actions/paste-action";
+import { getPasteById } from "~/actions/paste";
 import { redirect } from "next/navigation";
 import { MonacoEditor } from "~/components/monaco-editor";
 import { EditorProvider } from "~/components/editor-provider";

@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Button } from "~/components/ui/button";
-import { addPaste } from "~/actions/paste-action";
+import { addPaste } from "~/actions/paste";
 import { useEffect } from "react";
 
 interface SaveButtonProps {
