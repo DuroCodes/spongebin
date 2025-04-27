@@ -1,11 +1,15 @@
 "use client";
 
-import { useEditor } from "./editor-provider";
-import { THEME_MAP } from "~/utils/themes";
 import { useEffect, useState } from "react";
 import { Editor, type Monaco } from "@monaco-editor/react";
 import { createHighlighter } from "shiki";
 import { shikiToMonaco } from "@shikijs/monaco";
+import {
+  AutoTypings,
+  LocalStorageCache,
+} from "monaco-editor-auto-typings/custom-editor";
+import { useEditor } from "./editor-provider";
+import { THEME_MAP } from "~/utils/themes";
 import { LANGUAGES } from "~/utils/languages";
 
 export function MonacoEditor() {
@@ -66,8 +70,12 @@ export function MonacoEditor() {
         language={language}
         value={content}
         onChange={(val) => setContent(val || "")}
-        onMount={(_, m) => {
-          handleEditorDidMount(m).catch(console.error);
+        onMount={async (editor, monaco) => {
+          handleEditorDidMount(monaco).catch(console.error);
+          await AutoTypings.create(editor, {
+            sourceCache: new LocalStorageCache(),
+            monaco,
+          });
         }}
         options={{
           fontSize: 14,
