@@ -37,10 +37,6 @@ export function MonacoEditor() {
 
       shikiToMonaco(highlighter, monaco);
 
-      monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
-        tsx: "react",
-      });
-
       monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
         validate: true,
         enableSchemaRequest: true,
