@@ -3,7 +3,7 @@
 import { useEditor } from "./editor-provider";
 import { Button, buttonVariants } from "~/components/ui/button";
 import { THEME_MAP } from "~/utils/themes";
-import { LANGUAGES } from "~/utils/languages";
+import { LANGUAGE_NAMES } from "~/utils/languages";
 import { SaveButton } from "./save-button";
 import { SearchableSelect } from "./searchable-select";
 import { Icons } from "./icons";
@@ -44,7 +44,7 @@ export function Header() {
 
       <div className="grid grid-cols-2 gap-2 w-full sm:flex sm:flex-row sm:w-auto">
         <SearchableSelect
-          options={LANGUAGES.map((l) => ({ value: l, label: l }))}
+          options={LANGUAGE_NAMES.map((l) => ({ value: l, label: l }))}
           placeholder="language"
           value={language}
           onValueChange={setLanguage}

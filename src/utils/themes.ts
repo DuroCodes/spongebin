@@ -1,7 +1,7 @@
 import { ThemeInput } from "shiki";
-import horizonTheme from "./custom/horizon.json";
-import shadesOfPurpleTheme from "./custom/shades-of-purple.json";
-import darkSquaredTheme from "./custom/dark-squared.json";
+import horizonTheme from "./themes/horizon.json";
+import shadesOfPurpleTheme from "./themes/shades-of-purple.json";
+import darkSquaredTheme from "./themes/dark-squared.json";
 
 type ShadCnKeys =
   | "background"

@@ -10,7 +10,7 @@ import {
 } from "monaco-editor-auto-typings/custom-editor";
 import { useEditor } from "./editor-provider";
 import { THEME_MAP } from "~/utils/themes";
-import { LANGUAGES } from "~/utils/languages";
+import { LANGUAGES, LANGUAGE_NAMES } from "~/utils/languages";
 
 export function MonacoEditor() {
   const { language, theme, content, setContent } = useEditor();
@@ -32,8 +32,8 @@ export function MonacoEditor() {
         .filter(([key]) => key !== theme)
         .map(([key, value]) => value.theme ?? key);
 
-      LANGUAGES.forEach((l) => monaco.languages.register({ id: l }));
-
+      LANGUAGE_NAMES.forEach((l) => monaco.languages.register({ id: l }));
+  
       const highlighter = await createHighlighter({
         themes: [currentTheme, ...restThemes],
         langs: LANGUAGES,
