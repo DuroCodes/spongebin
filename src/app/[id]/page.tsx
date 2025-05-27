@@ -39,17 +39,10 @@ export async function generateMetadata({ params }: Props) {
     };
 
   const numLines = paste.content.split("\n").length;
-  const codeblockContent = paste.content
-    .split("\n")
-    .slice(0, 3)
-    .join("\n")
-    .replace(/`/g, "\\`");
-
-  const codeblockPreview = `\`\`\`${paste.language}\n${codeblockContent}\n\`\`\``;
 
   return {
     title: `spongebin • ${paste.id}`,
-    description: `a paste containing ${numLines} lines of ${paste.language}\ncode:\n${codeblockPreview}`,
+    description: `a paste containing ${numLines} lines of ${paste.language}`,
     openGraph: { images: "/sponge.png" },
     twitter: { card: "summary" },
   };
