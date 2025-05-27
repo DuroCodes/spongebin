@@ -39,13 +39,13 @@ export async function generateMetadata({ params }: Props) {
     };
 
   const numLines = paste.content.split("\n").length;
-  const codeblockPreview = paste.content
+  const codeblockContent = paste.content
     .split("\n")
     .slice(0, 3)
     .join("\n")
-    .replace(/`/g, "\\`")
-    .replace(/^\s*```(\w+)?/, "```" + paste.language)
-    .replace(/^\s*```/, "```");
+    .replace(/`/g, "\\`");
+
+  const codeblockPreview = `\`\`\`${paste.language}\n${codeblockContent}\n\`\`\``;
 
   return {
     title: `spongebin • ${paste.id}`,
