@@ -1,4 +1,4 @@
-import sfml from "./languages/sfml.json";
+import sfm from "./languages/sfm.json";
 
 export const LANGUAGES = [
   "text",
@@ -210,7 +210,7 @@ export const LANGUAGES = [
   "yaml",
   // "zenscript",
   "zig",
-  sfml,
+  sfm,
 ];
 
 export const LANGUAGE_NAMES = LANGUAGES.map((l) =>

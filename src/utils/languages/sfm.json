@@ -1,6 +1,6 @@
 {
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-	"name": "sfml",
+	"name": "sfm",
 	"patterns": [
 		{
 			"include": "#keywords"
@@ -19,51 +19,51 @@
 		"keywords": {
 			"patterns": [
 			{
-				"name": "variable.parameter.sfml",
+				"name": "variable.parameter.sfm",
 				"match": "(?i)\\b(TICKS|TICK)\\b"
 			},
 			{
-				"name": "variable.parameter.sfml",
+				"name": "variable.parameter.sfm",
 				"match": "(?i)\\b(FLUID|GAS|ITEM|FE)\\b\\s*:\\s*(\\S+)"
 			},
 			{
-				"name": "variable.parameter.sfml",
+				"name": "variable.parameter.sfm",
 				"match": "(?i)(?<=INPUT\\s)(.*?)\\s+(?=FROM|EXCEPT|RETAIN|WITH|WITHOUT)"
 			},
 			{
-				"name": "variable.parameter.sfml",
+				"name": "variable.parameter.sfm",
 				"match": "(?i)(?<=OUTPUT\\s)(.*?)\\s+(?=TO|EXCEPT|RETAIN|WITH|WITHOUT)"
 			},
 
 			{
-				"name": "storage.type.primitive.sfml",
+				"name": "storage.type.primitive.sfm",
 				"match": "(?i)\\b(FORGET)\\b"
 			},
 			{
-				"name": "storage.type.primitive.sfml",
+				"name": "storage.type.primitive.sfm",
 				"match": "(?i)\\bROUND(\\s+ROBIN(\\s+BY(\\s+(LABEL|BLOCK))?)?)?\\b"
 			},
 			{
-				"name": "storage.type.primitive.sfml",
+				"name": "storage.type.primitive.sfm",
 				"match": "(?i)(?<=\\s)(EQ|GT|LT|LE|GE)(?=\\s)"
 			},
 			{
-				"name": "storage.type.primitive.sfml",
+				"name": "storage.type.primitive.sfm",
 				"match": "(?<=\\s)(=|>|<|<=|>=)(?=\\s)"
 			},
 
 			{
-				"name": "keyword.control.sfml",
+				"name": "keyword.control.sfm",
 				"match": "(?i)\\b(EXCEPT|MOVE|FROM|TO|INPUT|OUTPUT|WHERE|SLOTS|RETAIN|EACH|TOP|BOTTOM|NORTH|EAST|SOUTH|WEST|SIDE|SELF|SECONDS|EVERY|PULSE|WORLD|PROGRAM|WITH|WITHOUT)\\b"
 			},
 
 			{
-				"name": "storage.type.name.sfml",
+				"name": "storage.type.name.sfm",
 				"match": "(?i)\\b(NAME)\\b"
 			},
 
 			{
-				"name": "keyword.control.flow.sfml",
+				"name": "keyword.control.flow.sfm",
 				"match": "(?i)\\b(DO|END|IF|ELSE|THEN)\\b"
 			},
 
@@ -84,33 +84,33 @@
 					"begin": "--",
 					"beginCaptures": {
 						"0": {
-							"name": "punctuation.definition.comment.sfml"
+							"name": "punctuation.definition.comment.sfm"
 						}
 					},
 					"end": "\\n",
-					"name": "comment.line.double-dash.sfml"
+					"name": "comment.line.double-dash.sfm"
 				}
 			]
 		},
 		"numbers": {
 			"patterns": [
 				{
-					"name": "constant.numeric.sfml",
+					"name": "constant.numeric.sfm",
 					"match": "\\b\\d+\\b"
 				}
 			]
 		},
 		"strings": {
-			"name": "string.quoted.double.sfml",
+			"name": "string.quoted.double.sfm",
 			"begin": "\"",
 			"end": "\"",
 			"patterns": [
 				{
-					"name": "constant.character.escape.sfml",
+					"name": "constant.character.escape.sfm",
 					"match": "\\\\."
 				}
 			]
 		}
 	},
-	"scopeName": "source.sfml"
+	"scopeName": "source.sfm"
 }
