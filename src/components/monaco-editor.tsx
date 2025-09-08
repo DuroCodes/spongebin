@@ -33,7 +33,7 @@ export function MonacoEditor() {
         .map(([key, value]) => value.theme ?? key);
 
       LANGUAGE_NAMES.forEach((l) => monaco.languages.register({ id: l }));
-  
+
       const highlighter = await createHighlighter({
         themes: [currentTheme, ...restThemes],
         langs: LANGUAGES,
