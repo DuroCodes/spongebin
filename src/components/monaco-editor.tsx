@@ -1,16 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Editor, type Monaco } from "@monaco-editor/react";
-import { createHighlighter } from "shiki";
-import { shikiToMonaco } from "@shikijs/monaco";
 import {
   AutoTypings,
   LocalStorageCache,
 } from "monaco-editor-auto-typings/custom-editor";
+import { useEffect, useState } from "react";
+import { Editor, type Monaco } from "@monaco-editor/react";
+import { shikiToMonaco } from "@shikijs/monaco";
+import { createHighlighter } from "shiki";
+import { LANGUAGES, LANGUAGE_NAMES } from "~/utils/languages";
 import { useEditor } from "./editor-provider";
 import { THEME_MAP } from "~/utils/themes";
-import { LANGUAGES, LANGUAGE_NAMES } from "~/utils/languages";
 
 export function MonacoEditor() {
   const { language, theme, content, setContent } = useEditor();

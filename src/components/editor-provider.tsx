@@ -26,9 +26,9 @@ export function EditorProvider({
   initialLanguage = "typescript",
   initialTheme = "catppuccin-mocha",
 }: EditorProviderProps) {
-  const [content, setContent] = useState<string>(initialContent);
-  const [language, setLanguage] = useState<string>(initialLanguage);
-  const [theme, setTheme] = useState<string>(initialTheme);
+  const [content, setContent] = useState(initialContent);
+  const [language, setLanguage] = useState(initialLanguage);
+  const [theme, setTheme] = useState(initialTheme);
 
   const value = {
     content,

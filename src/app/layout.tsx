@@ -1,7 +1,7 @@
+import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { Toaster } from "~/components/ui/sonner";
-import "./globals.css";
 
 export const metadata: Metadata = {
   title: "spongebin",

@@ -1,10 +1,10 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { toast } from "sonner";
 import { Button } from "~/components/ui/button";
 import { addPaste } from "~/actions/paste";
-import { useEffect } from "react";
 
 interface SaveButtonProps {
   content: string;

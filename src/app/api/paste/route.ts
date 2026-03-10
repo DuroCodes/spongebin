@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import { addPaste } from "~/actions/paste";
 import { LANGUAGES } from "~/utils/languages";
+import { addPaste } from "~/actions/paste";
 import { THEME_MAP } from "~/utils/themes";
 
 export async function POST(request: NextRequest) {
