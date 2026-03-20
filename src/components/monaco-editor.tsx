@@ -1,9 +1,5 @@
 "use client";
 
-import {
-  AutoTypings,
-  LocalStorageCache,
-} from "monaco-editor-auto-typings/custom-editor";
 import { useEffect, useRef, useState } from "react";
 import { Editor, type Monaco } from "@monaco-editor/react";
 import { shikiToMonaco } from "@shikijs/monaco";
@@ -83,19 +79,7 @@ export function MonacoEditor() {
         language={activeTab.language}
         value={activeTab.content}
         onChange={(val) => updateActiveTabContent(val || "")}
-        onMount={async (editor, monaco) => {
-          try {
-            await handleEditorDidMount(monaco);
-            if (!editor.getModel()) return;
-
-            await AutoTypings.create(editor, {
-              sourceCache: new LocalStorageCache(),
-              monaco,
-            });
-          } catch (error) {
-            console.warn("AutoTypings init failed (ignored):", error);
-          }
-        }}
+        onMount={async (_editor, monaco) => await handleEditorDidMount(monaco)}
         options={{
           fontSize: 14,
           wordWrap: wordWrap ? "on" : "off",
