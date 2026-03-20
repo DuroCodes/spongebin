@@ -4,10 +4,7 @@ import { MonacoEditor } from "~/components/monaco-editor";
 import { getPasteById } from "~/actions/paste";
 import { Header } from "~/components/header";
 import { LANGUAGES_SET, type LanguageName } from "~/utils/languages";
-import {
-  createEmptyTab,
-  normalizeTabs,
-} from "~/utils/paste-tabs";
+import { createEmptyTab, normalizeTabs } from "~/utils/paste-tabs";
 
 interface Props {
   params: Promise<{ id: string }>;

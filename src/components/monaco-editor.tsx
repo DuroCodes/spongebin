@@ -4,7 +4,7 @@ import {
   AutoTypings,
   LocalStorageCache,
 } from "monaco-editor-auto-typings/custom-editor";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Editor, type Monaco } from "@monaco-editor/react";
 import { shikiToMonaco } from "@shikijs/monaco";
 import { createHighlighter } from "shiki";
@@ -13,8 +13,19 @@ import { useEditor } from "./editor-provider";
 import { THEME_MAP } from "~/utils/themes";
 
 export function MonacoEditor() {
-  const { activeTab, theme, updateActiveTabContent } = useEditor();
+  const {
+    activeTab,
+    activeTabId,
+    closeTab,
+    theme,
+    wordWrap,
+    updateActiveTabContent,
+  } = useEditor();
   const [isLoading, setIsLoading] = useState(true);
+  const activeTabIdRef = useRef(activeTabId);
+  activeTabIdRef.current = activeTabId;
+  const closeTabRef = useRef(closeTab);
+  closeTabRef.current = closeTab;
 
   useEffect(() => {
     const colors = THEME_MAP[theme]?.ui;
@@ -87,7 +98,7 @@ export function MonacoEditor() {
         }}
         options={{
           fontSize: 14,
-          wordWrap: "off",
+          wordWrap: wordWrap ? "on" : "off",
           minimap: { enabled: false },
           automaticLayout: true,
           bracketPairColorization: {

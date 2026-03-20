@@ -3,10 +3,8 @@
 import { Plus, X } from "lucide-react";
 import { useEditor } from "~/components/editor-provider";
 import { SearchableSelect } from "~/components/searchable-select";
+import { Button } from "~/components/ui/button";
 import { cn } from "~/utils/cn";
-
-const iconBtnClass =
-  "border-input dark:bg-input/30 text-muted-foreground hover:text-foreground inline-flex h-9 w-9 items-center justify-center rounded-md border bg-background shadow-xs transition-colors";
 
 export function EditorTabs() {
   const {
@@ -23,117 +21,132 @@ export function EditorTabs() {
   return (
     <div className="flex min-w-0 items-center gap-2">
       <div className="flex min-w-0 flex-1 items-center gap-2 sm:hidden">
-        {hasMultipleTabs ? (
-          <SearchableSelect
-            options={tabs.map((tab) => ({
-              value: tab.id,
-              label: tab.filename,
-            }))}
-            placeholder="files"
-            value={activeTabId}
-            onValueChange={setActiveTabId}
-            onPreview={setActiveTabId}
-            className="min-w-0 flex-1"
-          />
-        ) : (
-          <span className="text-muted-foreground block min-w-0 flex-1 truncate px-2 text-sm font-medium">
-            {activeTab.filename}
-          </span>
-        )}
+        <SearchableSelect
+          options={tabs.map((tab) => ({
+            value: tab.id,
+            label: tab.filename,
+          }))}
+          placeholder="files"
+          value={activeTabId}
+          onValueChange={setActiveTabId}
+          onPreview={setActiveTabId}
+          className="min-w-0 flex-1"
+        />
 
-        {hasMultipleTabs && (
-          <button
-            type="button"
-            onClick={() => closeTab(activeTabId)}
-            className={iconBtnClass}
-            aria-label={`Close ${activeTab.filename}`}
-          >
-            <X className="h-4 w-4" />
-          </button>
-        )}
-
-        <button
+        <Button
           type="button"
+          variant="outline"
+          size="icon"
+          className="relative z-10 shrink-0"
           onClick={addTab}
-          className={iconBtnClass}
           aria-label="Add tab"
         >
-          <Plus className="h-4 w-4" />
-        </button>
+          <Plus />
+        </Button>
+
+        {hasMultipleTabs && (
+          <Button
+            type="button"
+            variant="outline"
+            size="icon"
+            className="shrink-0"
+            onClick={() => closeTab(activeTabId)}
+            aria-label={`Close ${activeTab.filename}`}
+          >
+            <X />
+          </Button>
+        )}
       </div>
 
-      <div className="hidden min-w-0 flex-1 overflow-x-auto sm:block">
-        <div className="flex min-w-max items-center gap-2">
+      <div className="scrollbar-none hidden min-h-0 min-w-0 flex-1 overflow-x-auto overflow-y-hidden sm:block">
+        <div className="inline-flex min-w-max items-center gap-2">
           {hasMultipleTabs &&
             tabs.map((tab) => {
               const isActive = tab.id === activeTabId;
+              const nameForWidth = isActive ? activeTab.filename : tab.filename;
+              const labelWidthCh = Math.min(
+                24,
+                Math.max(10, nameForWidth.length + 3),
+              );
+              const labelWidthStyle = {
+                width: `${labelWidthCh}ch`,
+                minWidth: `${labelWidthCh}ch`,
+              } as const;
 
               return (
                 <div
                   key={tab.id}
                   className={cn(
-                    "border-input dark:bg-input/30 bg-background text-foreground flex h-9 items-center gap-1 rounded-md border pr-0.5 text-sm shadow-xs transition-colors",
+                    "border-input dark:bg-input/30 bg-background text-foreground box-border inline-flex h-9 shrink-0 items-center gap-1 rounded-md border pr-0.5 text-sm transition-colors",
                     isActive &&
-                      "bg-primary text-primary-foreground border-transparent",
+                      "border-primary bg-primary text-primary-foreground",
                   )}
                 >
                   {isActive ? (
                     <input
                       value={activeTab.filename}
+                      spellCheck={false}
                       onChange={(event) =>
                         updateActiveTabFilename(event.target.value)
                       }
                       onClick={(event) => event.stopPropagation()}
-                      className="placeholder:text-primary-foreground/70 bg-transparent px-3 text-sm font-medium outline-none"
-                      style={{
-                        width: `${Math.min(
-                          24,
-                          Math.max(10, activeTab.filename.length + 3),
-                        )}ch`,
-                      }}
+                      className="placeholder:text-primary-foreground/70 min-w-0 bg-transparent px-3 py-0 text-sm font-medium leading-none outline-none focus-visible:ring-0"
+                      style={labelWidthStyle}
                       placeholder="file.ts"
                       aria-label="Filename"
                     />
                   ) : (
-                    <button
+                    <Button
                       type="button"
+                      variant="ghost"
+                      className={cn(
+                        "text-foreground h-full min-h-0 min-w-0 justify-start rounded-none px-3 py-0 text-left text-sm font-medium leading-none shadow-none",
+                        "hover:bg-transparent hover:text-foreground",
+                        "focus-visible:ring-0 focus-visible:ring-offset-0",
+                      )}
+                      style={labelWidthStyle}
                       onClick={() => setActiveTabId(tab.id)}
-                      className="h-full px-3 text-sm font-medium"
                     >
-                      <span className="text-muted-foreground block max-w-40 truncate">
+                      <span className="block min-w-0 truncate">
                         {tab.filename}
                       </span>
-                    </button>
+                    </Button>
                   )}
 
-                  <button
+                  <Button
                     type="button"
+                    variant="ghost"
+                    size="icon"
+                    className={cn(
+                      "h-8 w-8 min-h-8 min-w-8 shrink-0 transition-colors hover:bg-transparent dark:hover:bg-transparent",
+                      isActive
+                        ? "text-primary-foreground hover:text-primary-foreground/90"
+                        : "text-muted-foreground hover:text-primary",
+                    )}
                     onClick={(event) => {
                       event.stopPropagation();
                       closeTab(tab.id);
                     }}
-                    className={cn(
-                      "inline-flex h-8 w-8 items-center justify-center rounded-md transition-colors",
-                      isActive
-                        ? "text-primary-foreground/80 hover:text-primary-foreground"
-                        : "text-muted-foreground hover:text-foreground",
-                    )}
                     aria-label={`Close ${tab.filename}`}
                   >
-                    <X className="h-3.5 w-3.5" />
-                  </button>
+                    <X className="size-3.5" />
+                  </Button>
                 </div>
               );
             })}
 
-          <button
-            type="button"
-            onClick={addTab}
-            className={iconBtnClass}
-            aria-label="Add tab"
-          >
-            <Plus className="h-4 w-4" />
-          </button>
+          <div className="bg-background sticky right-0 z-10 shrink-0">
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              className="bg-background"
+              onClick={addTab}
+              aria-label="Add tab"
+            >
+              <Plus />
+            </Button>
+          </div>
         </div>
       </div>
     </div>

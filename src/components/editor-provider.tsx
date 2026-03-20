@@ -28,6 +28,8 @@ interface EditorContextType {
   closeTab: (tabId: string) => void;
   theme: string;
   setTheme: (theme: string) => void;
+  wordWrap: boolean;
+  setWordWrap: (value: boolean) => void;
 }
 
 const EditorContext = createContext<EditorContextType | undefined>(undefined);
@@ -52,6 +54,7 @@ export function EditorProvider({
     initialActiveTabId ?? initialTabs?.[0]?.id ?? "",
   );
   const [theme, setTheme] = useState(initialTheme);
+  const [wordWrap, setWordWrap] = useState(false);
 
   const activeTab = tabs.find((tab) => tab.id === activeTabId) ?? tabs[0]!;
 
@@ -133,6 +136,8 @@ export function EditorProvider({
         closeTab,
         theme,
         setTheme,
+        wordWrap,
+        setWordWrap,
       }}
     >
       {children}
@@ -142,7 +147,8 @@ export function EditorProvider({
 
 export function useEditor() {
   const context = useContext(EditorContext);
-  if (context === undefined)
+
+  if (!context)
     throw new Error("useEditor must be used within an EditorProvider");
 
   return context;

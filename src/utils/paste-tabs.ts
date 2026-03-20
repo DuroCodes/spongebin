@@ -54,13 +54,10 @@ export const LANGUAGE_EXTENSIONS: Record<LanguageName, string> = {
   sfm: "sfm",
 };
 
-const toSafeExtension = (language: LanguageName) =>
-  language.toLowerCase().replace(/[^a-z0-9]+/g, "");
-
 export const LANGUAGE_TO_EXTENSION = Object.fromEntries(
   LANGUAGES.map((language) => [
     language,
-    LANGUAGE_EXTENSIONS[language] ?? toSafeExtension(language),
+    LANGUAGE_EXTENSIONS[language] ?? language.toLowerCase(),
   ]),
 ) as Record<LanguageName, string>;
 
@@ -77,7 +74,7 @@ export const inferLanguage = (filename: string) => {
   const extension = filename.trim().split(".").pop()?.toLowerCase();
   if (!extension || extension === filename.trim().toLowerCase()) return null;
 
-  return EXTENSION_TO_LANGUAGE[extension] ?? null;
+  return EXTENSION_TO_LANGUAGE[extension] ?? "text";
 };
 
 export const replaceFilenameExtension = (

@@ -74,7 +74,8 @@
 }
 
 * {
-  font-family: "JetBrains Mono", "SF Mono", "Monaco", "Inconsolata", "Fira Code",
+  font-family:
+    "JetBrains Mono", "SF Mono", "Monaco", "Inconsolata", "Fira Code",
     "Fira Mono", "Droid Sans Mono", "Source Code Pro", "Consolas",
     "DejaVu Sans Mono", monospace;
   font-feature-settings: "cv11", "cv13";
@@ -121,5 +122,15 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 }
