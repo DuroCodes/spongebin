@@ -1,34 +1,57 @@
 import { NextRequest, NextResponse } from "next/server";
-import { LANGUAGES } from "~/utils/languages";
+import { LANGUAGES_SET, type LanguageName } from "~/utils/languages";
 import { addPaste } from "~/actions/paste";
 import { THEME_MAP } from "~/utils/themes";
+import { normalizeTabs } from "~/utils/paste-tabs";
+
+const isLanguageName = (value: unknown): value is LanguageName =>
+  typeof value === "string" && LANGUAGES_SET.has(value as LanguageName);
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
+    const tabs = normalizeTabs(body.tabs);
 
-    if (!body.content)
+    if (!tabs.length && !body.content)
       return NextResponse.json(
-        { error: "Content is required" },
+        { error: "At least one file is required" },
         { status: 400 },
       );
 
-    const language = body.language || "text";
     const theme = body.theme || "catppuccin-mocha";
+    const normalizedTabs =
+      tabs.length > 0
+        ? tabs
+        : [
+            {
+              id: crypto.randomUUID(),
+              filename: "paste.txt",
+              language:
+                typeof body.language === "string" && isLanguageName(body.language)
+                  ? body.language
+                  : "text",
+              content: body.content,
+            },
+          ];
 
-    if (!LANGUAGES.includes(language))
-      return NextResponse.json(
-        { error: `Invalid language: ${language}` },
-        { status: 400 },
-      );
+    for (const tab of normalizedTabs) {
+      if (!isLanguageName(tab.language))
+        return NextResponse.json(
+          { error: `Invalid language: ${tab.language}` },
+          { status: 400 },
+        );
+    }
 
-    if (!Object.keys(THEME_MAP).includes(theme))
+    if (!(theme in THEME_MAP))
       return NextResponse.json(
         { error: `Invalid theme: ${theme}` },
         { status: 400 },
       );
 
-    const paste = await addPaste(body.content, language, theme);
+    const paste = await addPaste({
+      tabs: normalizedTabs,
+      theme,
+    });
 
     if (!paste.id)
       return NextResponse.json(

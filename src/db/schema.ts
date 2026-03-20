@@ -1,5 +1,6 @@
-import { pgTable, text } from "drizzle-orm/pg-core";
+import { jsonb, pgTable, text } from "drizzle-orm/pg-core";
 import { customAlphabet } from "nanoid";
+import type { PasteTab } from "~/utils/paste-tabs";
 
 const nanoid = customAlphabet(
   "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
@@ -13,4 +14,5 @@ export const paste = pgTable("paste", {
   content: text("content").notNull(),
   language: text("language").notNull(),
   theme: text("theme").notNull(),
+  tabs: jsonb("tabs").$type<PasteTab[]>(),
 });

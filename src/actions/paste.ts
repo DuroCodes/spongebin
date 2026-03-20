@@ -3,6 +3,7 @@
 import { eq } from "drizzle-orm";
 import { db } from "~/db/drizzle";
 import { paste } from "~/db/schema";
+import type { PasteTab } from "~/utils/paste-tabs";
 
 export const getPasteById = async (id: string) => {
   const pasteData = await db
@@ -14,17 +15,22 @@ export const getPasteById = async (id: string) => {
   return pasteData[0];
 };
 
-export const addPaste = async (
-  content: string,
-  language: string,
-  theme: string,
-) => {
+export const addPaste = async ({
+  tabs,
+  theme,
+}: {
+  tabs: PasteTab[];
+  theme: string;
+}) => {
+  const primaryTab = tabs[0];
+
   const pasteData = await db
     .insert(paste)
     .values({
-      content,
-      language,
+      content: primaryTab?.content ?? "",
+      language: primaryTab?.language ?? "text",
       theme,
+      tabs,
     })
     .returning({ id: paste.id });
 

@@ -22,6 +22,13 @@
       "when": 1745172454939,
       "tag": "0002_fine_lady_vermin",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1774019339525,
+      "tag": "0003_slim_tag",
+      "breakpoints": true
     }
   ]
 }
