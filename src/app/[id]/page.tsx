@@ -3,6 +3,7 @@ import { EditorProvider } from "~/components/editor-provider";
 import { MonacoEditor } from "~/components/monaco-editor";
 import { getPasteById } from "~/actions/paste";
 import { Header } from "~/components/header";
+import { SITE_URL } from "~/constants/site";
 import { LANGUAGES_SET, type LanguageName } from "~/utils/languages";
 import { createEmptyTab, normalizeTabs } from "~/utils/paste-tabs";
 
@@ -51,13 +52,27 @@ export default async function PastePage({ params }: Props) {
 export async function generateMetadata({ params }: Props) {
   const { id } = await params;
   const paste = await getPasteById(id);
+  const ogImage = { url: "/sponge.png", alt: "spongebin" };
 
   if (!paste)
     return {
       title: "spongebin",
       description: "a pastebin made with sponge",
-      openGraph: { images: "/sponge.png" },
-      twitter: { card: "summary" },
+      openGraph: {
+        type: "website",
+        locale: "en_US",
+        url: SITE_URL,
+        siteName: "spongebin",
+        title: "spongebin",
+        description: "a pastebin made with sponge",
+        images: [ogImage],
+      },
+      twitter: {
+        card: "summary",
+        title: "spongebin",
+        description: "a pastebin made with sponge",
+        images: ["/sponge.png"],
+      },
     };
 
   const tabs = normalizeTabs(paste.tabs);
@@ -66,10 +81,28 @@ export async function generateMetadata({ params }: Props) {
     ? tabs.reduce((sum, tab) => sum + tab.content.split("\n").length, 0)
     : paste.content.split("\n").length;
 
+  const title = `spongebin • ${paste.id}`;
+  const description = `a paste containing ${totalTabs} file${totalTabs === 1 ? "" : "s"} and ${totalLines} lines`;
+  const canonical = `${SITE_URL}/${paste.id}`;
+
   return {
-    title: `spongebin • ${paste.id}`,
-    description: `a paste containing ${totalTabs} file${totalTabs === 1 ? "" : "s"} and ${totalLines} lines`,
-    openGraph: { images: "/sponge.png" },
-    twitter: { card: "summary" },
+    title,
+    description,
+    alternates: { canonical },
+    openGraph: {
+      type: "website",
+      locale: "en_US",
+      url: canonical,
+      siteName: "spongebin",
+      title,
+      description,
+      images: [ogImage],
+    },
+    twitter: {
+      card: "summary",
+      title,
+      description,
+      images: ["/sponge.png"],
+    },
   };
 }
