@@ -88,6 +88,6 @@ const BUILTIN_LANGUAGE_NAMES = [
 ] as const;
 
 export const MONACO_LANGUAGES = [...BUILTIN_LANGUAGE_NAMES, sfm] as const;
-export const LANGUAGES = [...BUILTIN_LANGUAGE_NAMES, sfm.name] as const;
+export const LANGUAGES = [...BUILTIN_LANGUAGE_NAMES, "sfm"] as const;
 export const LANGUAGES_SET = new Set(LANGUAGES);
 export type LanguageName = (typeof LANGUAGES)[number];

@@ -6,7 +6,7 @@ import { useEditor } from "./editor-provider";
 import { EditorTabs } from "./editor-tabs";
 import { Button, buttonVariants } from "~/components/ui/button";
 import { SearchableSelect } from "./searchable-select";
-import { LANGUAGES, LANGUAGES_SET } from "~/utils/languages";
+import { LANGUAGES, LANGUAGES_SET, type LanguageName } from "~/utils/languages";
 import { THEME_MAP } from "~/utils/themes";
 import { SaveButton } from "./save-button";
 import { Icons } from "./icons";
@@ -16,7 +16,8 @@ function LanguageThemeControls() {
   const { activeTab, theme, updateActiveTabLanguage, setTheme } = useEditor();
 
   const setLanguage = (language: string) => {
-    if (LANGUAGES_SET.has(language)) updateActiveTabLanguage(language);
+    if (LANGUAGES_SET.has(language as LanguageName))
+      updateActiveTabLanguage(language as LanguageName);
   };
 
   return (
