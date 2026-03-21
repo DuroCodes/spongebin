@@ -27,7 +27,8 @@ export async function POST(request: NextRequest) {
               id: crypto.randomUUID(),
               filename: "paste.txt",
               language:
-                typeof body.language === "string" && isLanguageName(body.language)
+                typeof body.language === "string" &&
+                isLanguageName(body.language)
                   ? body.language
                   : "text",
               content: body.content,
