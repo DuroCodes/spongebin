@@ -11,7 +11,7 @@ import { type LanguageName } from "~/utils/languages";
 import {
   createEmptyTab,
   inferLanguage,
-  LANGUAGE_TO_EXTENSION,
+  LANGUAGE_EXTENSIONS,
   replaceFilenameExtension,
   type PasteTab,
 } from "~/utils/paste-tabs";
@@ -77,7 +77,7 @@ export function EditorProvider({
   const updateActiveTabLanguage = (language: LanguageName) => {
     updateTab(activeTab.id, (tab) => {
       const currentExtension = tab.filename.split(".").pop()?.toLowerCase();
-      const currentLanguageExtension = LANGUAGE_TO_EXTENSION[tab.language];
+      const currentLanguageExtension = LANGUAGE_EXTENSIONS[tab.language];
 
       return {
         ...tab,

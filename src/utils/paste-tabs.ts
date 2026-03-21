@@ -95,23 +95,34 @@ export const LANGUAGE_EXTENSIONS = {
   sfm: "sfm",
 } as const satisfies Record<LanguageName, string>;
 
-export const LANGUAGE_TO_EXTENSION: Record<LanguageName, string> =
-  LANGUAGE_EXTENSIONS;
-
-const EXTENSION_TO_LANGUAGE = Object.fromEntries(
-  Object.entries(LANGUAGE_TO_EXTENSION).map(([language, extension]) => [
+const EXTENSION_LANGUAGES = Object.fromEntries(
+  Object.entries(LANGUAGE_EXTENSIONS).map(([language, extension]) => [
     extension,
     language,
   ]),
 ) as Record<string, LanguageName>;
 
+const COMPOUND_EXTENSIONS = (
+  Object.entries(LANGUAGE_EXTENSIONS) as [LanguageName, string][]
+)
+  .filter(([, ext]) => ext.includes("."))
+  .sort((a, b) => b[1].length - a[1].length);
+
 const createTabId = () => crypto.randomUUID();
 
 export const inferLanguage = (filename: string) => {
-  const extension = filename.trim().split(".").pop()?.toLowerCase();
-  if (!extension || extension === filename.trim().toLowerCase()) return null;
+  const trimmed = filename.trim();
+  if (!trimmed) return null;
+  const lower = trimmed.toLowerCase();
 
-  return EXTENSION_TO_LANGUAGE[extension] ?? "text";
+  for (const [language, ext] of COMPOUND_EXTENSIONS) {
+    if (lower.endsWith(`.${ext}`)) return language;
+  }
+
+  const extension = lower.split(".").pop();
+  if (!extension || extension === lower) return null;
+
+  return EXTENSION_LANGUAGES[extension] ?? "text";
 };
 
 export const replaceFilenameExtension = (
@@ -119,12 +130,22 @@ export const replaceFilenameExtension = (
   language: LanguageName,
 ) => {
   const trimmedFilename = filename.trim();
-  if (!trimmedFilename) return `file.${LANGUAGE_TO_EXTENSION[language]}`;
+  if (!trimmedFilename) return `file.${LANGUAGE_EXTENSIONS[language]}`;
+
+  const newExt = LANGUAGE_EXTENSIONS[language];
+  const lower = trimmedFilename.toLowerCase();
+
+  for (const [, ext] of COMPOUND_EXTENSIONS) {
+    if (lower.endsWith(`.${ext}`)) {
+      const cut = trimmedFilename.length - (ext.length + 1);
+      return `${trimmedFilename.slice(0, cut)}.${newExt}`;
+    }
+  }
 
   const lastDotIndex = trimmedFilename.lastIndexOf(".");
   if (lastDotIndex <= 0) return trimmedFilename;
 
-  return `${trimmedFilename.slice(0, lastDotIndex)}.${LANGUAGE_TO_EXTENSION[language]}`;
+  return `${trimmedFilename.slice(0, lastDotIndex)}.${newExt}`;
 };
 
 export const createEmptyTab = (
@@ -132,7 +153,7 @@ export const createEmptyTab = (
   language: LanguageName = "typescript",
 ) => ({
   id: createTabId(),
-  filename: `file${index}.${LANGUAGE_TO_EXTENSION[language]}`,
+  filename: `file${index}.${LANGUAGE_EXTENSIONS[language]}`,
   language,
   content: "",
 });
