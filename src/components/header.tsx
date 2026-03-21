@@ -54,7 +54,7 @@ export function Header() {
 
   return (
     <>
-      <header className="border-border/70 bg-background shrink-0 border-b">
+      <header className="border-border/70 bg-background shrink-0 border-b sm:border-b-0">
         <div className="flex flex-col gap-2 px-4 py-2 sm:flex-row sm:items-center sm:py-3">
           <div className="grid w-full grid-cols-6 gap-2 sm:flex sm:w-auto sm:shrink-0">
             <Link
