@@ -1,28 +1,35 @@
 "use client";
 
-import {
-  AutoTypings,
-  LocalStorageCache,
-} from "monaco-editor-auto-typings/custom-editor";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Editor, type Monaco } from "@monaco-editor/react";
 import { shikiToMonaco } from "@shikijs/monaco";
 import { createHighlighter } from "shiki";
-import { LANGUAGES, LANGUAGE_NAMES } from "~/utils/languages";
+import { LANGUAGES, MONACO_LANGUAGES } from "~/utils/languages";
 import { useEditor } from "./editor-provider";
 import { THEME_MAP } from "~/utils/themes";
 
 export function MonacoEditor() {
-  const { language, theme, content, setContent } = useEditor();
+  const {
+    activeTab,
+    activeTabId,
+    closeTab,
+    theme,
+    wordWrap,
+    updateActiveTabContent,
+  } = useEditor();
   const [isLoading, setIsLoading] = useState(true);
+  const activeTabIdRef = useRef(activeTabId);
+  activeTabIdRef.current = activeTabId;
+  const closeTabRef = useRef(closeTab);
+  closeTabRef.current = closeTab;
 
   useEffect(() => {
-    const colors = THEME_MAP[theme].ui;
+    const colors = THEME_MAP[theme]?.ui;
     if (!colors) return;
 
-    Object.entries(colors).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(colors)) {
       document.documentElement.style.setProperty(`--${key}`, value);
-    });
+    }
   }, [theme]);
 
   const handleEditorDidMount = async (monaco: Monaco) => {
@@ -32,11 +39,11 @@ export function MonacoEditor() {
         .filter(([key]) => key !== theme)
         .map(([key, value]) => value.theme ?? key);
 
-      LANGUAGE_NAMES.forEach((l) => monaco.languages.register({ id: l }));
+      LANGUAGES.forEach((l) => monaco.languages.register({ id: l }));
 
       const highlighter = await createHighlighter({
         themes: [currentTheme, ...restThemes],
-        langs: LANGUAGES,
+        langs: [...MONACO_LANGUAGES],
       });
 
       shikiToMonaco(highlighter, monaco);
@@ -54,7 +61,7 @@ export function MonacoEditor() {
   };
 
   return (
-    <div className="relative w-full h-[calc(100vh-6rem)] sm:h-[calc(100vh-3.25rem)]">
+    <div className="relative h-full min-h-0 w-full">
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-background z-10">
           <div className="flex flex-col items-center gap-2">
@@ -65,21 +72,17 @@ export function MonacoEditor() {
       )}
 
       <Editor
-        className="h-[calc(100vh-6rem)] sm:h-calc(100vh-3.25rem)]"
+        path={`${activeTab.id}/${activeTab.filename}`}
+        saveViewState
+        className="h-full"
         theme={theme}
-        language={language}
-        value={content}
-        onChange={(val) => setContent(val || "")}
-        onMount={async (editor, monaco) => {
-          handleEditorDidMount(monaco).catch(console.error);
-          await AutoTypings.create(editor, {
-            sourceCache: new LocalStorageCache(),
-            monaco,
-          });
-        }}
+        language={activeTab.language}
+        value={activeTab.content}
+        onChange={(val) => updateActiveTabContent(val || "")}
+        onMount={async (_editor, monaco) => await handleEditorDidMount(monaco)}
         options={{
           fontSize: 14,
-          wordWrap: "off",
+          wordWrap: wordWrap ? "on" : "off",
           minimap: { enabled: false },
           automaticLayout: true,
           bracketPairColorization: {

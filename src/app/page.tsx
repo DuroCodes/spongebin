@@ -5,8 +5,12 @@ import { Header } from "~/components/header";
 export default function Home() {
   return (
     <EditorProvider>
-      <Header />
-      <MonacoEditor />
+      <main className="flex h-[100dvh] flex-col overflow-hidden">
+        <Header />
+        <div className="min-h-0 flex-1">
+          <MonacoEditor />
+        </div>
+      </main>
     </EditorProvider>
   );
 }
