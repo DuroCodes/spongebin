@@ -54,8 +54,8 @@ export function Header() {
 
   return (
     <>
-      <header className="border-border/70 bg-background shrink-0 border-b sm:border-b-0">
-        <div className="flex flex-col gap-2 px-4 py-2 sm:flex-row sm:items-center sm:py-3">
+      <header className="bg-background shrink-0">
+        <div className="flex flex-col gap-2 px-4 py-2 sm:flex-row sm:items-center">
           <div className="grid w-full grid-cols-6 gap-2 sm:flex sm:w-auto sm:shrink-0">
             <Link
               className={cn(
@@ -109,7 +109,7 @@ export function Header() {
       </header>
 
       <div
-        className="fixed bottom-0 left-0 right-0 z-40 grid grid-cols-2 gap-2 border-t border-border/70 bg-background/95 px-4 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] backdrop-blur supports-[backdrop-filter]:bg-background/80 sm:hidden"
+        className="fixed bottom-0 left-0 right-0 z-40 grid grid-cols-2 gap-2 bg-background/95 px-4 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] backdrop-blur supports-[backdrop-filter]:bg-background/80 sm:hidden"
         role="region"
         aria-label="Language and theme"
       >
