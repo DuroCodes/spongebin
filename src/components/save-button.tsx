@@ -48,6 +48,7 @@ export function SaveButton({ tabs, theme, className }: SaveButtonProps) {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key !== "s" || !(e.ctrlKey || e.metaKey)) return;
       e.preventDefault();
+      if (isSavingRef.current) return;
       void handleSave();
     };
 
