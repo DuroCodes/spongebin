@@ -134,3 +134,7 @@
     }
   }
 }
+
+.monaco-editor .iPadShowKeyboard {
+  display: none !important;
+}
