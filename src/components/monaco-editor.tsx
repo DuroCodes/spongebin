@@ -48,6 +48,10 @@ export function MonacoEditor() {
 
       shikiToMonaco(highlighter, monaco);
 
+      monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
+        strict: true,
+      });
+
       monaco.languages.json.jsonDefaults.setDiagnosticsOptions({
         validate: true,
         enableSchemaRequest: true,
