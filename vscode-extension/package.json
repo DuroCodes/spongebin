@@ -1,0 +1,61 @@
+{
+  "name": "spongebin-vscode",
+  "displayName": "spongebin",
+  "description": "Create spongebin pastes from VS Code.",
+  "version": "0.0.1",
+  "private": true,
+  "publisher": "spongebin",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "spongebin.uploadFromSelection",
+        "title": "spongebin: Upload from Selection"
+      },
+      {
+        "command": "spongebin.uploadEntireFile",
+        "title": "spongebin: Upload Entire File"
+      }
+    ],
+    "configuration": {
+      "title": "spongebin",
+      "properties": {
+        "spongebin.baseUrl": {
+          "type": "string",
+          "default": "http://127.0.0.1:3000",
+          "description": "Base URL of your spongebin instance (127.0.0.1 avoids fetch issues some setups have with localhost/IPv6)."
+        },
+        "spongebin.defaultLanguage": {
+          "type": "string",
+          "default": "text",
+          "description": "Fallback language when the file has no recognizable extension (normally inferred from the open file)."
+        },
+        "spongebin.theme": {
+          "type": "string",
+          "default": "catppuccin-mocha",
+          "description": "Theme name to send when creating a paste."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p .",
+    "watch": "tsc -p . -w",
+    "package": "vsce package",
+    "publish": "vsce publish",
+    "prepublishOnly": "bun run compile"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.0",
+    "@types/vscode": "^1.90.0",
+    "@vscode/vsce": "^3.2.2",
+    "typescript": "^5.8.3"
+  }
+}
+
