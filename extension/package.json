@@ -1,0 +1,65 @@
+{
+  "name": "spongebin-vscode",
+  "displayName": "spongebin",
+  "description": "Create spongebin pastes from VS Code.",
+  "version": "0.0.2",
+  "publisher": "spongebin",
+  "license": "MIT",
+  "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DuroCodes/spongebin.git"
+  },
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "spongebin.upload",
+        "title": "spongebin: upload"
+      }
+    ],
+    "configuration": {
+      "title": "spongebin",
+      "properties": {
+        "spongebin.baseUrl": {
+          "type": "string",
+          "default": "https://spongebin.dev",
+          "description": "Base URL of your spongebin instance."
+        },
+        "spongebin.defaultLanguage": {
+          "type": "string",
+          "default": "text",
+          "description": "Fallback language when the file has no recognizable extension (normally inferred from the open file)."
+        },
+        "spongebin.theme": {
+          "type": "string",
+          "default": "catppuccin-mocha",
+          "description": "Theme name to send when creating a paste."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --platform=node --format=cjs --sourcemap",
+    "watch": "bun run compile -- --watch",
+    "package": "bun run compile && vsce package",
+    "publish:marketplace": "bun run package && vsce publish --azure-credential --packagePath \"spongebin-vscode-$(node -p \"require('./package.json').version\").vsix\"",
+    "publish:openvsx": "bun run package && ovsx publish \"spongebin-vscode-$(node -p \"require('./package.json').version\").vsix\"",
+    "check": "tsc -p . --noEmit"
+  },
+  "devDependencies": {
+    "@spongebin/shared": "workspace:*",
+    "@types/node": "^20.19.0",
+    "@types/vscode": "^1.90.0",
+    "@vscode/vsce": "^3.2.2",
+    "esbuild": "^0.25.4",
+    "ovsx": "^0.10.5",
+    "typescript": "^5.8.3"
+  }
+}

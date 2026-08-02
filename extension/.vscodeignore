@@ -1,0 +1,14 @@
+# Only ship the bundled extension entrypoint + marketplace metadata.
+**
+../**
+!package.json
+!README.md
+!CHANGELOG.md
+!LICENSE
+!LICENSE.md
+!LICENSE.txt
+!icon.png
+!dist/
+!dist/extension.js
+dist/**/*.map
+**/*.map
