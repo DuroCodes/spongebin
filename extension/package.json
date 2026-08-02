@@ -43,15 +43,13 @@
   "scripts": {
     "compile": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --platform=node --format=cjs --sourcemap",
     "watch": "bun run compile -- --watch",
-    "package": "vsce package",
-    "publish": "vsce publish",
+    "package": "bun run compile && vsce package --allow-missing-repository",
+    "publish": "bun run compile && vsce publish",
     "prepublishOnly": "bun run compile",
     "check": "tsc -p . --noEmit"
   },
-  "dependencies": {
-    "@spongebin/shared": "workspace:*"
-  },
   "devDependencies": {
+    "@spongebin/shared": "workspace:*",
     "@types/node": "^20.19.0",
     "@types/vscode": "^1.90.0",
     "@vscode/vsce": "^3.2.2",

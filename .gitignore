@@ -20,6 +20,7 @@ node_modules/
 # production
 /build
 extension/dist/
+extension/*.vsix
 
 # misc
 .DS_Store
