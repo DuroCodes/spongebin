@@ -4,12 +4,12 @@
     {
       "label": "compile",
       "type": "shell",
-      "command": "npx tsc -p .",
+      "command": "bun run compile",
       "options": {
         "cwd": "${workspaceFolder}"
       },
       "group": "build",
-      "problemMatcher": ["$tsc"]
+      "problemMatcher": []
     }
   ]
 }

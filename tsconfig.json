@@ -25,6 +25,9 @@
     "paths": {
       "~/*": [
         "./src/*"
+      ],
+      "@spongebin/shared": [
+        "./shared/src/index.ts"
       ]
     }
   },
@@ -35,6 +38,7 @@
     ".next/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "extension"
   ]
 }

@@ -45,17 +45,21 @@
     }
   },
   "scripts": {
-    "compile": "tsc -p .",
-    "watch": "tsc -p . -w",
+    "compile": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --platform=node --format=cjs --sourcemap",
+    "watch": "bun run compile -- --watch",
     "package": "vsce package",
     "publish": "vsce publish",
-    "prepublishOnly": "bun run compile"
+    "prepublishOnly": "bun run compile",
+    "check": "tsc -p . --noEmit"
+  },
+  "dependencies": {
+    "@spongebin/shared": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^20.19.0",
     "@types/vscode": "^1.90.0",
     "@vscode/vsce": "^3.2.2",
+    "esbuild": "^0.25.4",
     "typescript": "^5.8.3"
   }
 }
-

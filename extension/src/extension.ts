@@ -1,18 +1,20 @@
 import * as path from "path";
 import * as vscode from "vscode";
 import {
-  inferLanguageFromFilename,
+  inferLanguage,
+  LANGUAGES_SET,
   type LanguageName,
-  SPONGEBIN_LANGUAGE_IDS,
-} from "./languageFromFilename";
+} from "@spongebin/shared";
 
 type CreatePasteResponse =
   | { success: true; id: string; url: string }
   | { error: string };
 
+const DEFAULT_BASE_URL = "http://127.0.0.1:3000";
+
 const getConfig = () => {
   const cfg = vscode.workspace.getConfiguration("spongebin");
-  const baseUrl = String(cfg.get("baseUrl", "https://spongebin.dev")).replace(
+  const baseUrl = String(cfg.get("baseUrl", DEFAULT_BASE_URL)).replace(
     /\/+$/,
     "",
   );
@@ -24,23 +26,27 @@ const getConfig = () => {
 const createPaste = async ({
   content,
   language,
+  theme,
+  baseUrl,
 }: {
   content: string;
   language: string;
+  theme: string;
+  baseUrl: string;
 }) => {
-  const { baseUrl, theme } = getConfig();
-
   const res = await fetch(`${baseUrl}/api/paste`, {
     method: "POST",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify({
-      content,
-      language,
-      theme,
-    }),
+    body: JSON.stringify({ content, language, theme }),
   });
 
-  const data = (await res.json()) as CreatePasteResponse;
+  let data: CreatePasteResponse;
+  try {
+    data = (await res.json()) as CreatePasteResponse;
+  } catch {
+    throw new Error(`Request failed (${res.status})`);
+  }
+
   if (!res.ok) {
     const msg = "error" in data ? data.error : `Request failed (${res.status})`;
     throw new Error(msg);
@@ -50,7 +56,7 @@ const createPaste = async ({
   return data;
 };
 
-/** VS Code language IDs that differ from spongebin's `language` strings. */
+// vscode language ids are different from spongebin's `language` values.
 const VSCODE_LANGUAGE_ID_MAP: Record<string, LanguageName> = {
   typescriptreact: "tsx",
   javascriptreact: "jsx",
@@ -59,36 +65,41 @@ const VSCODE_LANGUAGE_ID_MAP: Record<string, LanguageName> = {
   fsharp: "f#",
 };
 
-const languageForDocument = (document: vscode.TextDocument) => {
-  const { defaultLanguage } = getConfig();
+const languageForDocument = (
+  document: vscode.TextDocument,
+  defaultLanguage: string,
+) => {
   const filePath = document.uri.fsPath;
   const name = filePath ? path.basename(filePath) : "";
-  const fromName = inferLanguageFromFilename(name);
-  if (fromName !== "text") return fromName;
+  const fromName = inferLanguage(name);
+  if (fromName && fromName !== "text") return fromName;
 
   const id = document.languageId;
   const mapped = VSCODE_LANGUAGE_ID_MAP[id];
   if (mapped) return mapped;
-  if (SPONGEBIN_LANGUAGE_IDS.has(id as LanguageName)) return id as LanguageName;
+  if (LANGUAGES_SET.has(id)) return id as LanguageName;
 
   return defaultLanguage;
+};
+
+const uploadText = async (document: vscode.TextDocument, text: string) => {
+  const { baseUrl, defaultLanguage, theme } = getConfig();
+  const language = languageForDocument(document, defaultLanguage);
+  const resp = await createPaste({ content: text, language, theme, baseUrl });
+
+  await vscode.env.clipboard.writeText(resp.url);
+  await vscode.env.openExternal(vscode.Uri.parse(resp.url));
+  vscode.window.showInformationMessage("spongebin URL copied to clipboard.");
 };
 
 const uploadFromSelection = async () => {
   const editor = vscode.window.activeTextEditor;
   if (!editor) throw new Error("No active editor");
 
-  const selection = editor.selection;
-  const text = editor.document.getText(selection).trimEnd();
+  const text = editor.document.getText(editor.selection).trimEnd();
   if (!text) throw new Error("Selection is empty");
 
-  const language = languageForDocument(editor.document);
-  const resp = await createPaste({ content: text, language });
-
-  await vscode.env.clipboard.writeText(resp.url);
-  await vscode.env.openExternal(vscode.Uri.parse(resp.url));
-
-  vscode.window.showInformationMessage("spongebin URL copied to clipboard.");
+  await uploadText(editor.document, text);
 };
 
 const uploadEntireFile = async () => {
@@ -98,13 +109,7 @@ const uploadEntireFile = async () => {
   const text = editor.document.getText();
   if (!text) throw new Error("File is empty");
 
-  const language = languageForDocument(editor.document);
-  const resp = await createPaste({ content: text, language });
-
-  await vscode.env.clipboard.writeText(resp.url);
-  await vscode.env.openExternal(vscode.Uri.parse(resp.url));
-
-  vscode.window.showInformationMessage("spongebin URL copied to clipboard.");
+  await uploadText(editor.document, text);
 };
 
 const wrap = (fn: () => Promise<void>) => async () => {
@@ -122,14 +127,9 @@ export const activate = (context: vscode.ExtensionContext) => {
       "spongebin.uploadFromSelection",
       wrap(uploadFromSelection),
     ),
-  );
-
-  context.subscriptions.push(
     vscode.commands.registerCommand(
       "spongebin.uploadEntireFile",
       wrap(uploadEntireFile),
     ),
   );
 };
-
-export const deactivate = () => {};
