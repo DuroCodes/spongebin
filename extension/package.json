@@ -49,7 +49,7 @@
     "compile": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --platform=node --format=cjs --sourcemap",
     "watch": "bun run compile -- --watch",
     "package": "bun run compile && vsce package",
-    "publish:marketplace": "bun run package && vsce publish --packagePath \"spongebin-vscode-$(node -p \"require('./package.json').version\").vsix\"",
+    "publish:marketplace": "bun run package && vsce publish --azure-credential --packagePath \"spongebin-vscode-$(node -p \"require('./package.json').version\").vsix\"",
     "publish:openvsx": "bun run package && ovsx publish \"spongebin-vscode-$(node -p \"require('./package.json').version\").vsix\"",
     "check": "tsc -p . --noEmit"
   },

@@ -22,4 +22,3 @@ bun run --cwd extension compile
 ```
 
 then **Run and Debug** → **Run Extension** (`F5`). that opens an Extension Development Host with the extension loaded from `extension/`.
-
