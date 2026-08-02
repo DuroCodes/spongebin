@@ -1,0 +1,14 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "packages": {
+    "extension": {
+      "release-type": "node",
+      "package-name": "extension",
+      "changelog-path": "CHANGELOG.md",
+      "include-component-in-tag": true,
+      "include-v-in-tag": true,
+      "bump-minor-pre-major": true,
+      "bump-patch-for-minor-pre-major": true
+    }
+  }
+}

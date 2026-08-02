@@ -10,3 +10,5 @@
 !icon.png
 !dist/
 !dist/extension.js
+dist/**/*.map
+**/*.map
