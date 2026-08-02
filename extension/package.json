@@ -2,7 +2,7 @@
   "name": "spongebin-vscode",
   "displayName": "spongebin",
   "description": "Create spongebin pastes from VS Code.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "publisher": "spongebin",
   "icon": "icon.png",
