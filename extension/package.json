@@ -15,12 +15,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "spongebin.uploadFromSelection",
-        "title": "spongebin: Upload from Selection"
-      },
-      {
-        "command": "spongebin.uploadEntireFile",
-        "title": "spongebin: Upload Entire File"
+        "command": "spongebin.upload",
+        "title": "spongebin: Upload"
       }
     ],
     "configuration": {

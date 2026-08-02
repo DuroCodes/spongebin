@@ -4,8 +4,7 @@ create spongebin pastes directly from your editor.
 
 ## commands
 
-- `spongebin: Upload from Selection`
-- `spongebin: Upload Entire File`
+- `spongebin: Upload` — uploads the selection if one exists, otherwise the whole file
 
 ## settings
 
@@ -15,14 +14,12 @@ create spongebin pastes directly from your editor.
 
 ## development
 
-from the repo root (workspaces install shared + extension deps):
+from the repo root:
 
 ```bash
 bun install
-cd extension
-bun run compile
+bun run --cwd extension compile
 ```
 
-then run the extension via vs code: `Run and Debug` → `Run Extension`.
+then **Run and Debug** → **Run Extension** (`F5`). that opens an Extension Development Host with the extension loaded from `extension/`.
 
-language names and file-extension mappings live in `@spongebin/shared` and are shared with the web app.

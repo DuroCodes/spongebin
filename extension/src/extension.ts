@@ -92,24 +92,19 @@ const uploadText = async (document: vscode.TextDocument, text: string) => {
   vscode.window.showInformationMessage("spongebin URL copied to clipboard.");
 };
 
-const uploadFromSelection = async () => {
+const upload = async () => {
   const editor = vscode.window.activeTextEditor;
   if (!editor) throw new Error("No active editor");
 
-  const text = editor.document.getText(editor.selection).trimEnd();
-  if (!text) throw new Error("Selection is empty");
+  const { document, selection } = editor;
+  const text = selection.isEmpty
+    ? document.getText()
+    : document.getText(selection).trimEnd();
 
-  await uploadText(editor.document, text);
-};
+  if (!text)
+    throw new Error(selection.isEmpty ? "File is empty" : "Selection is empty");
 
-const uploadEntireFile = async () => {
-  const editor = vscode.window.activeTextEditor;
-  if (!editor) throw new Error("No active editor");
-
-  const text = editor.document.getText();
-  if (!text) throw new Error("File is empty");
-
-  await uploadText(editor.document, text);
+  await uploadText(document, text);
 };
 
 const wrap = (fn: () => Promise<void>) => async () => {
@@ -123,13 +118,6 @@ const wrap = (fn: () => Promise<void>) => async () => {
 
 export const activate = (context: vscode.ExtensionContext) => {
   context.subscriptions.push(
-    vscode.commands.registerCommand(
-      "spongebin.uploadFromSelection",
-      wrap(uploadFromSelection),
-    ),
-    vscode.commands.registerCommand(
-      "spongebin.uploadEntireFile",
-      wrap(uploadEntireFile),
-    ),
+    vscode.commands.registerCommand("spongebin.upload", wrap(upload)),
   );
 };
