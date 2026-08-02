@@ -4,7 +4,7 @@ create spongebin pastes directly from your editor.
 
 ## commands
 
-- `spongebin: Upload` — uploads the selection if one exists, otherwise the whole file
+- `spongebin: upload` — uploads the selection if one exists, otherwise the whole file
 
 ## settings
 

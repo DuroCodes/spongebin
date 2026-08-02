@@ -16,7 +16,7 @@
     "commands": [
       {
         "command": "spongebin.upload",
-        "title": "spongebin: Upload"
+        "title": "spongebin: upload"
       }
     ],
     "configuration": {
