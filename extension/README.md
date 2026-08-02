@@ -8,7 +8,7 @@ create spongebin pastes directly from your editor.
 
 ## settings
 
-- `spongebin.baseUrl` (default: `http://127.0.0.1:3000`)
+- `spongebin.baseUrl` (default: `https://spongebin.dev`)
 - `spongebin.defaultLanguage` (default: `text`)
 - `spongebin.theme` (default: `catppuccin-mocha`)
 

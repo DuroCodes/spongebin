@@ -10,7 +10,7 @@ type CreatePasteResponse =
   | { success: true; id: string; url: string }
   | { error: string };
 
-const DEFAULT_BASE_URL = "http://127.0.0.1:3000";
+const DEFAULT_BASE_URL = "https://spongebin.dev";
 
 const getConfig = () => {
   const cfg = vscode.workspace.getConfiguration("spongebin");

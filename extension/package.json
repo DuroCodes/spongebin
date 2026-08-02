@@ -24,8 +24,8 @@
       "properties": {
         "spongebin.baseUrl": {
           "type": "string",
-          "default": "http://127.0.0.1:3000",
-          "description": "Base URL of your spongebin instance (127.0.0.1 avoids fetch issues some setups have with localhost/IPv6)."
+          "default": "https://spongebin.dev",
+          "description": "Base URL of your spongebin instance."
         },
         "spongebin.defaultLanguage": {
           "type": "string",
