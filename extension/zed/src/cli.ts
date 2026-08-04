@@ -5,7 +5,7 @@ import * as path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const TASK_LABEL = "spongebin: upload";
-const TASKS_TEMPLATE = "extension/zed/tasks.json";
+const TASKS_TEMPLATE = ".zed/tasks.json";
 const UPLOAD_ARG = "$ZED_WORKTREE_ROOT/extension/zed/src/upload.ts";
 const UPLOAD_SRC = "extension/zed/src/upload.ts";
 const SHARED_IMPORT = 'from "@spongebin/shared"';
