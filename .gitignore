@@ -19,8 +19,10 @@ node_modules/
 
 # production
 /build
-extension/dist/
-extension/*.vsix
+extension/vscode/dist/
+extension/vscode/*.vsix
+extension/mcp/dist/
+extension/zed/target/
 
 # misc
 .DS_Store

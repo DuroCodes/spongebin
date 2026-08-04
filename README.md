@@ -5,6 +5,14 @@
 
 a pastebin for code snippets; rendered with shiki and monaco editor
 
+## extensions
+
+| path | editor |
+| --- | --- |
+| [`extension/vscode`](extension/vscode) | VS Code / Open VSX |
+| [`extension/zed`](extension/zed) | Zed (MCP server wrapper) |
+| [`extension/mcp`](extension/mcp) | MCP server used by Zed (and other MCP clients) |
+
 ## setup
 
 > [!NOTE]

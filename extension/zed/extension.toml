@@ -1,0 +1,10 @@
+id = "spongebin"
+name = "spongebin"
+description = "Create spongebin pastes from the Zed agent panel."
+version = "0.0.1"
+schema_version = 1
+authors = ["DuroCodes"]
+repository = "https://github.com/DuroCodes/spongebin"
+
+[context_servers.spongebin]
+name = "spongebin"

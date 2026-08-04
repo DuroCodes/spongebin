@@ -1,0 +1,8 @@
+{
+  /// Base URL of your spongebin instance.
+  "base_url": "https://spongebin.dev",
+  /// Fallback language when none is provided to create_paste.
+  "default_language": "text",
+  /// Theme name sent when creating a paste.
+  "theme": "catppuccin-mocha"
+}

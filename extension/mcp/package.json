@@ -1,0 +1,40 @@
+{
+  "name": "spongebin-mcp",
+  "version": "0.0.1",
+  "description": "MCP server for creating spongebin pastes.",
+  "license": "MIT",
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DuroCodes/spongebin.git",
+    "directory": "extension/mcp"
+  },
+  "bin": {
+    "spongebin-mcp": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --outfile=dist/index.js --platform=node --format=esm --banner:js=\"#!/usr/bin/env node\" --external:@modelcontextprotocol/* --external:zod",
+    "start": "bun run src/index.ts",
+    "check": "tsc -p . --noEmit",
+    "prepublishOnly": "bun run build"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@spongebin/shared": "workspace:*",
+    "@types/node": "^20.19.0",
+    "esbuild": "^0.25.4",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -4,7 +4,8 @@
   "private": true,
   "workspaces": [
     "shared",
-    "extension"
+    "extension/vscode",
+    "extension/mcp"
   ],
   "scripts": {
     "dev": "next dev --turbopack",

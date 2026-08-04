@@ -7,3 +7,7 @@ All notable changes to the spongebin editor extension are documented in this fil
 ### Features
 
 * initial Marketplace-ready packaging, icon, and upload command
+
+### Notes
+
+* package now lives at `extension/vscode` (alongside Zed/MCP packages)
