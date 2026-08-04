@@ -57,10 +57,10 @@ const rawBase = () => {
   return `https://raw.githubusercontent.com/${repo}/${ref}`;
 };
 
-const readJson = <T>(filePath: string, fallback: T) => {
+function readJson<T>(filePath: string, fallback: T): T {
   if (!fs.existsSync(filePath)) return fallback;
   return JSON.parse(fs.readFileSync(filePath, "utf8")) as T;
-};
+}
 
 const writeJson = (filePath: string, value: unknown) => {
   fs.mkdirSync(path.dirname(filePath), { recursive: true });

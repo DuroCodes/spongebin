@@ -7,7 +7,7 @@ zed does not let extensions register command palette actions like vs code. inste
 requires [bun](https://bun.sh) on `PATH`.
 
 ```bash
-bun run https://raw.githubusercontent.com/DuroCodes/spongebin/main/extension/zed/src/cli.ts install
+curl -fsSL https://raw.githubusercontent.com/DuroCodes/spongebin/main/extension/zed/src/cli.ts | bun run - install
 ```
 
 or from a local clone:
@@ -19,8 +19,8 @@ bun run --cwd extension/zed install
 uninstall:
 
 ```bash
-bun run --cwd extension/zed uninstall
-# or: bun run https://raw.githubusercontent.com/DuroCodes/spongebin/main/extension/zed/src/cli.ts uninstall
+curl -fsSL https://raw.githubusercontent.com/DuroCodes/spongebin/main/extension/zed/src/cli.ts | bun run - uninstall
+# or from a clone: bun run --cwd extension/zed uninstall
 ```
 
 that will:
