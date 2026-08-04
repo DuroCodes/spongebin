@@ -1,11 +1,3 @@
-export {
-  BUILTIN_LANGUAGE_NAMES,
-  LANGUAGES,
-  LANGUAGES_SET,
-  type LanguageName,
-} from "./languages";
-export {
-  LANGUAGE_EXTENSIONS,
-  inferLanguage,
-  replaceFilenameExtension,
-} from "./extensions";
+export * from "./languages";
+export * from "./extensions";
+export * from "./paste";

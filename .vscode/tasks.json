@@ -6,7 +6,7 @@
       "type": "shell",
       "command": "bun run compile",
       "options": {
-        "cwd": "${workspaceFolder}/extension"
+        "cwd": "${workspaceFolder}/extension/vscode"
       },
       "group": "build",
       "problemMatcher": []

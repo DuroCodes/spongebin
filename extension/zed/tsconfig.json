@@ -4,14 +4,13 @@
     "lib": ["ES2022"],
     "module": "ES2022",
     "moduleResolution": "bundler",
-    "types": ["node", "vscode"],
+    "types": ["bun"],
     "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
     "noEmit": true,
+    "skipLibCheck": true,
     "paths": {
-      "@spongebin/shared": ["../shared/src/index.ts"]
+      "@spongebin/shared": ["../../shared/src/index.ts"]
     }
   },
-  "include": ["src/**/*.ts", "../shared/src/**/*.ts"]
+  "include": ["src/**/*.ts", "../../shared/src/**/*.ts"]
 }
