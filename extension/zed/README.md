@@ -13,14 +13,13 @@ bun run https://raw.githubusercontent.com/DuroCodes/spongebin/main/extension/zed
 or from a local clone:
 
 ```bash
-bun run extension/zed/src/cli.ts install
-# or: bun run --cwd extension/zed install
+bun run --cwd extension/zed install
 ```
 
 uninstall:
 
 ```bash
-bun run extension/zed/src/cli.ts uninstall
+bun run --cwd extension/zed uninstall
 # or: bun run https://raw.githubusercontent.com/DuroCodes/spongebin/main/extension/zed/src/cli.ts uninstall
 ```
 
