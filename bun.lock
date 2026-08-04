@@ -42,7 +42,7 @@
         "typescript": "^5",
       },
     },
-    "extension": {
+    "extension/vscode": {
       "name": "spongebin-vscode",
       "version": "0.0.2",
       "devDependencies": {
@@ -1037,7 +1037,7 @@
 
     "spdx-license-ids": ["spdx-license-ids@3.0.23", "", {}, "sha512-CWLcCCH7VLu13TgOH+r8p1O/Znwhqv/dbb6lqWy67G+pT1kHmeD/+V36AVb/vq8QMIQwVShJ6Ssl5FPh0fuSdw=="],
 
-    "spongebin-vscode": ["spongebin-vscode@workspace:extension"],
+    "spongebin-vscode": ["spongebin-vscode@workspace:extension/vscode"],
 
     "state-local": ["state-local@1.0.7", "", {}, "sha512-HTEHMNieakEnoe33shBYcZ7NX83ACUjCu8c40iOGEZsngj9zRnkqS9j1pqQPXwobB0ZcVTk27REb7COQ0UR59w=="],
 

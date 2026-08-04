@@ -5,6 +5,13 @@
 
 a pastebin for code snippets; rendered with shiki and monaco editor
 
+## extensions
+
+| path | editor |
+| --- | --- |
+| [`extension/vscode`](extension/vscode) | VS Code / Open VSX |
+| [`extension/zed`](extension/zed) | Zed (task-based upload; see note in that README) |
+
 ## setup
 
 > [!NOTE]

@@ -10,8 +10,8 @@
     "skipLibCheck": true,
     "noEmit": true,
     "paths": {
-      "@spongebin/shared": ["../shared/src/index.ts"]
+      "@spongebin/shared": ["../../shared/src/index.ts"]
     }
   },
-  "include": ["src/**/*.ts", "../shared/src/**/*.ts"]
+  "include": ["src/**/*.ts", "../../shared/src/**/*.ts"]
 }
