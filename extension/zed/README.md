@@ -1,46 +1,46 @@
-# spongebin (Zed)
+# spongebin (zed)
 
-Zed does **not** let extensions register arbitrary command-palette actions the way VS Code does.
+zed does not let extensions register command palette actions like vs code. instead, we register a task that can be spawned from the command palette or the run menu.
 
-From the [extension docs](https://zed.dev/docs/extensions/developing-extensions), extensions can only ship languages, themes, icon themes, snippets, debuggers, and MCP servers. Custom slash commands were removed. So there is no supported way to publish a marketplace extension that adds `spongebin: upload` to the palette like the VS Code package.
+## install
 
-## closest equivalent: a Zed task
-
-Zed tasks show up via **task: spawn** in the command palette, and you can bind one to a key.
-
-This folder ships:
-
-- `upload.ts` — uploads selection (via `$ZED_SELECTED_TEXT`) or the current file
-- `tasks.json` — task template for this repo
-
-### use in this repo
-
-copy/symlink the task into the worktree:
+requires [bun](https://bun.sh) on `PATH`.
 
 ```bash
-mkdir -p .zed
-cp extension/zed/tasks.json .zed/tasks.json
+bun run https://raw.githubusercontent.com/DuroCodes/spongebin/main/extension/zed/src/cli.ts install
 ```
 
-then **task: spawn** → `spongebin: upload`.
+or from a local clone:
 
-optional keymap (`~/.config/zed/keymap.json`):
-
-```json
-[
-  {
-    "context": "Workspace",
-    "bindings": {
-      "cmd-shift-u": ["task::Spawn", { "task_name": "spongebin: upload" }]
-    }
-  }
-]
+```bash
+bun run extension/zed/src/cli.ts install
+# or: bun run --cwd extension/zed install
 ```
 
-### use in other projects
+uninstall:
 
-point the task `args` at your local checkout of `upload.ts`, or set `SPONGEBIN_BASE_URL` / `SPONGEBIN_THEME` in the task `env`.
+```bash
+bun run extension/zed/src/cli.ts uninstall
+# or: bun run https://raw.githubusercontent.com/DuroCodes/spongebin/main/extension/zed/src/cli.ts uninstall
+```
 
-## why not MCP?
+that will:
 
-An MCP server would only expose tools to the agent panel. That is not a user-facing upload command, so it is the wrong shape for this.
+1. copy the upload script (+ shared helpers) to `~/.local/share/spongebin`
+2. create or update `~/.config/zed/tasks.json` with a `spongebin: upload` task (replacing any previous one with that label)
+
+then in zed: **task: spawn** → **spongebin: upload**.
+
+## development
+
+this worktree also has `.zed/tasks.json` pointing at `$ZED_WORKTREE_ROOT/extension/zed/src/upload.ts`, so you can try the task here without installing globally.
+
+## env
+
+| variable                     | default                    | description                      |
+| ---------------------------- | -------------------------- | -------------------------------- |
+| `SPONGEBIN_BASE_URL`         | `https://spongebin.dev`    | spongebin instance               |
+| `SPONGEBIN_THEME`            | `catppuccin-mocha`         | paste theme                      |
+| `SPONGEBIN_DEFAULT_LANGUAGE` | `text`                     | fallback language                |
+| `SPONGEBIN_HOME`             | `~/.local/share/spongebin` | install dir used by the cli      |
+| `SPONGEBIN_REF`              | `main`                     | git ref for remote installs      |

@@ -2,5 +2,7 @@
 
 | path | description |
 | --- | --- |
-| [`vscode/`](vscode) | VS Code / Open VSX extension (`spongebin: upload`) |
-| [`zed/`](zed) | Zed task + upload script (Zed has no custom command-palette extension API) |
+| [`vscode/`](vscode) | vs code / open vsx extension (`spongebin: upload`) |
+| [`zed/`](zed) | zed task + upload script (zed has no command palette extension) |
+
+shared paste client helpers live in [`@spongebin/shared`](../shared) (`createPaste`, `resolvePasteLanguage`, defaults).

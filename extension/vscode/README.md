@@ -1,4 +1,4 @@
-# spongebin (VS Code)
+# spongebin (vs code)
 
 create spongebin pastes directly from your editor.
 

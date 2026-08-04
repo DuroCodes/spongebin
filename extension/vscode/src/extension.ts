@@ -1,68 +1,22 @@
 import * as path from "path";
 import * as vscode from "vscode";
 import {
-  inferLanguage,
-  LANGUAGES_SET,
-  type LanguageName,
+  DEFAULT_BASE_URL,
+  DEFAULT_LANGUAGE,
+  DEFAULT_THEME,
+  createPaste,
+  normalizeBaseUrl,
+  resolvePasteLanguage,
 } from "@spongebin/shared";
-
-type CreatePasteResponse =
-  | { success: true; id: string; url: string }
-  | { error: string };
-
-const DEFAULT_BASE_URL = "https://spongebin.dev";
 
 const getConfig = () => {
   const cfg = vscode.workspace.getConfiguration("spongebin");
-  const baseUrl = String(cfg.get("baseUrl", DEFAULT_BASE_URL)).replace(
-    /\/+$/,
-    "",
+  const baseUrl = normalizeBaseUrl(
+    String(cfg.get("baseUrl", DEFAULT_BASE_URL)),
   );
-  const defaultLanguage = String(cfg.get("defaultLanguage", "text"));
-  const theme = String(cfg.get("theme", "catppuccin-mocha"));
+  const defaultLanguage = String(cfg.get("defaultLanguage", DEFAULT_LANGUAGE));
+  const theme = String(cfg.get("theme", DEFAULT_THEME));
   return { baseUrl, defaultLanguage, theme };
-};
-
-const createPaste = async ({
-  content,
-  language,
-  theme,
-  baseUrl,
-}: {
-  content: string;
-  language: string;
-  theme: string;
-  baseUrl: string;
-}) => {
-  const res = await fetch(`${baseUrl}/api/paste`, {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({ content, language, theme }),
-  });
-
-  let data: CreatePasteResponse;
-  try {
-    data = (await res.json()) as CreatePasteResponse;
-  } catch {
-    throw new Error(`Request failed (${res.status})`);
-  }
-
-  if (!res.ok) {
-    const msg = "error" in data ? data.error : `Request failed (${res.status})`;
-    throw new Error(msg);
-  }
-  if (!("success" in data) || !data.success)
-    throw new Error("Unexpected response");
-  return data;
-};
-
-// vscode language ids are different from spongebin's `language` values.
-const VSCODE_LANGUAGE_ID_MAP: Record<string, LanguageName> = {
-  typescriptreact: "tsx",
-  javascriptreact: "jsx",
-  csharp: "c#",
-  cpp: "c++",
-  fsharp: "f#",
 };
 
 const languageForDocument = (
@@ -70,16 +24,13 @@ const languageForDocument = (
   defaultLanguage: string,
 ) => {
   const filePath = document.uri.fsPath;
-  const name = filePath ? path.basename(filePath) : "";
-  const fromName = inferLanguage(name);
-  if (fromName && fromName !== "text") return fromName;
+  const filename = filePath ? path.basename(filePath) : "";
 
-  const id = document.languageId;
-  const mapped = VSCODE_LANGUAGE_ID_MAP[id];
-  if (mapped) return mapped;
-  if (LANGUAGES_SET.has(id)) return id as LanguageName;
-
-  return defaultLanguage;
+  return resolvePasteLanguage({
+    filename,
+    editorLanguageId: document.languageId,
+    defaultLanguage,
+  });
 };
 
 const uploadText = async (document: vscode.TextDocument, text: string) => {

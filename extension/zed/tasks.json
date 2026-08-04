@@ -4,7 +4,7 @@
     "command": "bun",
     "args": [
       "run",
-      "$ZED_WORKTREE_ROOT/extension/zed/upload.ts",
+      "$ZED_WORKTREE_ROOT/extension/zed/src/upload.ts",
       "--file",
       "$ZED_FILE",
       "--filename",

@@ -21,6 +21,7 @@ node_modules/
 /build
 extension/vscode/dist/
 extension/vscode/*.vsix
+extension/zed/dist/
 
 # misc
 .DS_Store

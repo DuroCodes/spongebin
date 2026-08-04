@@ -1,0 +1,19 @@
+{
+  "name": "@spongebin/zed",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "upload": "bun run src/upload.ts",
+    "install": "bun run src/cli.ts install",
+    "uninstall": "bun run src/cli.ts uninstall",
+    "check": "tsc -p . --noEmit"
+  },
+  "dependencies": {
+    "@spongebin/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.2.19",
+    "typescript": "^5.8.3"
+  }
+}

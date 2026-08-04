@@ -4,7 +4,8 @@
   "private": true,
   "workspaces": [
     "shared",
-    "extension/vscode"
+    "extension/vscode",
+    "extension/zed"
   ],
   "scripts": {
     "dev": "next dev --turbopack",
